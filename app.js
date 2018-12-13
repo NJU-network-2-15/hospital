@@ -2,13 +2,27 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 
 var indexRouter = require('./server/routes/index');
 var usersRouter = require('./server/routes/users');
+var requestLogin = require('./server/API/requestLogin');
+var doctorViewRouter = require('./server/routes/doctorView');
+var doctorLoginRouter = require('./server/routes/doctorLogin');
 
 var app = express();
+
+// 使用 session 中间件
+app.use(session({
+  secret :  'hospital', // 对session id 相关的cookie 进行签名
+  resave : true,
+  saveUninitialized: false, // 是否保存未初始化的会话
+  cookie : {
+    maxAge : 1000 * 60 * 60 * 24, // 设置 session 的有效时间，单位毫秒
+  },
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'server', 'views'));
@@ -22,8 +36,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/pages', express.static(path.join(__dirname, 'server', 'views')));
 
+// router
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/doctorView', doctorViewRouter);
+app.use('/doctorLogin', doctorLoginRouter);
+
+
+// api
+app.use('/requestLogin', requestLogin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

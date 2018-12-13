@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../javascripts/jquery-3.3.1.min.js"></script>
+    <script src="../javascripts/jquery.cookie.js"></script>
+</head>
+<body>
+    <p class="name"></p>
+
+
+</body>
+<script>
+    $(document).ready(function(){
+        $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    })
+</script>
+</html>

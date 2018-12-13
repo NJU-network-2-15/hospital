@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send({'times':req.session.times, 'content':'respond with a resource'});
+    res.render('doctorview')
 });
 
 module.exports = router;

@@ -6,6 +6,8 @@ var doctorInfoSchema = new Schema({
     _id:Schema.ObjectId,   // 或者 'productId':{type:String}
     doctorID:String,
     doctorName:String,
+    doctorPassword:String,
+    type:String,
     description:String
 })
 

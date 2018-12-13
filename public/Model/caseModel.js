@@ -7,6 +7,7 @@ var caseInfoSchema = new Schema({
     patientID:String,
     caseID:String,
     caseDescription:String,
+    caseType:String,
     picUrl:String,
     isManaged:String,
     doctorID:String,
