@@ -12,8 +12,6 @@ router.get('/', function(req, res, next) {
     res.redirect(301, '/doctorView');
   }
 
-
-  // res.location('/pages/index.html');
 });
 
 module.exports = router;

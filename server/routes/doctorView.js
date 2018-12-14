@@ -3,7 +3,15 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.render('doctorview')
+    console.log('sessionID : ', req.session.doctorID);
+    // if(req.session.doctorID){
+    //     res.render('doctorview',{'doctorID':req.session.doctorID,'doctorName':req.session.doctorName});
+    // }else{
+    //     res.redirect(301, '/doctorLogin');
+    // }
+    res.render('doctorview',{'doctorID':req.session.doctorID,'doctorName':req.session.doctorName});
+
+    // res.send()
 });
 
 module.exports = router;

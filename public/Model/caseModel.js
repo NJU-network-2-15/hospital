@@ -5,13 +5,30 @@ var Schema = mongoose.Schema;
 var caseInfoSchema = new Schema({
     _id:Schema.ObjectId,   // 或者 'productId':{type:String}
     patientID:String,
+    patientName:String,
     caseID:String,
-    caseDescription:String,
     caseType:String,
-    picUrl:String,
-    isManaged:String,
-    doctorID:String,
-    dialog:String
+    gender:String,
+    age:String,
+    phone:String,
+    caseDescription:String,
+    startTime:String,
+    lastTime:String,
+    casePicUrls:[
+        {
+            picUrl: String
+        }
+    ],
+    solution:[
+        {
+            doctorID:String,
+            doctorName:String,
+            doctorLevel:String,
+            proposal:String,
+            responseTime:String
+        }
+    ]
+
 })
 
 // 输出(导出)

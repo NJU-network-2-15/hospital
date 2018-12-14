@@ -32,16 +32,14 @@
                 var account = $('#account').val()
                 var pwd = $('#pwd').val()
                 $.ajax({
-                    url:'../requestLogin',
+                    url:'/API/requestDoctorLogin',
                     type:"GET",
                     // dataType:"html",
-                    data:{'name':account,'pwd':pwd},
+                    data:{'account':account,'password':pwd},
                     success:function(result){
                         if(result!='Failed'){
                             console.log(result);
-                            $.cookie('doctorID',result.doctorID,{expires:1, path:'/', secure: false});
-                            $.cookie('doctorName',result.doctorName,{expires:1, path:'/', secure: false});
-                            window.location.href = '../doctorView'
+                            window.location.href = result.url
                         }else {
                             console.log('wrong')
 
