@@ -53,7 +53,9 @@ router.post('/', function (req, res, next) {
     var startTime = new Date().Format("yyyy-MM-dd hh:mm:ss");
     var lastTime = '';
     var casePicUrls = [];
-    var picBody = JSON.parse(req.body.casePicUrls)
+    var medicalHistory = req.body.medicalHistory;
+    var allergicHistory = req.body.allergicHistory;
+    var picBody = JSON.parse(req.body.casePicUrls);
     if(picBody.length>0){
         for(let element in picBody){
             casePicUrls.push({'picUrl':element});
@@ -73,7 +75,9 @@ router.post('/', function (req, res, next) {
         'startTime':startTime,
         'lastTime':lastTime,
         'casePicUrls':casePicUrls,
-        'solution':solution
+        'solution':solution,
+        'medicalHistory':medicalHistory,
+        'allergicHistory':allergicHistory
     });
 
     docs.save(function (err, doc) {

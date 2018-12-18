@@ -14,6 +14,8 @@ var caseInfoSchema = new Schema({
     caseDescription:String,
     startTime:String,
     lastTime:String,
+    medicalHistory:String,
+    allergicHistory:String,
     casePicUrls:[
         {
             picUrl: String

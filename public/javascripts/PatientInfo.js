@@ -35,7 +35,7 @@ $.ajax({
 });
 
 var patientName = document.getElementById('patientName');
-patientName.innerHTML = patientInfo['patientName'];
+patientName.innerHTML = patientInfo.patientName;
 var age = document.getElementById('age');
 age.innerHTML = patientInfo.age + "岁";
 var patientID = document.getElementById('patientID');
