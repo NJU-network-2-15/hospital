@@ -5,14 +5,13 @@ var caseModel = require('../../public/Model/caseModel');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    var id = req.query.patientID;
-    caseModel.find({'patientID': id}, {'_id': 0},function (err, doc) {
+    caseModel.find({}, {'_id': 0},function (err, doc) {
         if (err) {
             console.log(err.message);
             res.send('Failed');
         } else {
             if (doc.length > 0) {
-                res.send(doc);
+                res.send(doc)
             } else {
                 res.send('Failed');
             }

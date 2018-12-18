@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.render('moocTest');
+    res.render('allQuestions',{'patientName':req.session.patientName});
 });
 
 module.exports = router;

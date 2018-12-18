@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
   console.log(req.session)
   console.log(req.session.doctorID)
   if(!req.session.doctorID){
-    res.redirect(301, '/doctorLogin');
+    res.redirect(301, '/login');
   }
   else {
     res.redirect(301, '/doctorView');

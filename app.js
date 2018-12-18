@@ -12,16 +12,22 @@ var requestLogin = require('./server/API/requestDoctorLogin');
 var requestPatientLogin = require('./server/API/requestPatientLogin');
 var updatePatientInfo = require('./server/API/updatePatientInfo')
 var doctorViewRouter = require('./server/routes/doctorView');
-var doctorLoginRouter = require('./server/routes/doctorLogin');
-var doctorInfo = require('./server/API/requestDoctorInfo');
+var LoginRouter = require('./server/routes/login');
+var doctorInfoByName = require('./server/API/requestDoctorInfoByName');
+var doctorInfoByDepartment = require('./server/API/requestDoctorInfoByDepartment');
+var patientInfo = require('./server/API/requestPatientInfo');
 var mooc = require('./server/routes/mooctest');
 var addCase = require('./server/API/addCase');
 var addPatient = require('./server/API/addPatient');
 var requestAllCasePatient = require('./server/API/requestAllCasePatient');
 var requestAllCaseDoctor = require('./server/API/requestAllCaseDoctor');
+var requestAllCase = require('./server/API/requestAllCase');
 var deleteCase = require('./server/API/deleteCase');
 var updateCaseDoctor = require('./server/API/updateCaseDoctor');
 var updateCasePatient = require('./server/API/updateCasePatient');
+
+var allQuestions = require('./server/routes/allQuestions');
+var patientview = require('./server/routes/patientInfo');
 
 var app = express();
 
@@ -46,6 +52,14 @@ app.set('views', path.join(__dirname, 'server', 'views'));
 app.set('view engine', 'ejs');
 // app.engine( 'html', require( 'ejs' ).__express );
 
+app.all('*', function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  //Access-Control-Allow-Headers ,可根据浏览器的F12查看,把对应的粘贴在这里就行
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Methods', '*');
+  // res.header('Content-Type', 'application/json;charset=utf-8');
+  next();
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -57,7 +71,9 @@ app.use('/pages', express.static(path.join(__dirname, 'server', 'views')));
 // router
 app.use('/', indexRouter);
 app.use('/doctorView', doctorViewRouter);
-app.use('/doctorLogin', doctorLoginRouter);
+app.use('/login', LoginRouter);
+app.use('/patientInfo', patientview);
+app.use('/allQuestions', allQuestions);
 
 
 
@@ -66,16 +82,19 @@ app.use('/doctorLogin', doctorLoginRouter);
 app.use('/API/requestPatientLogin', requestPatientLogin);
 app.use('/API/updatePatientInfo', updatePatientInfo);
 app.use('/API/requestDoctorLogin', requestLogin);
-app.use('/API/requestDoctorInfo', doctorInfo);
+app.use('/API/requestDoctorInfoByName', doctorInfoByName);
+app.use('/API/requestDoctorInfoByDepartment', doctorInfoByDepartment);
+app.use('/API/requestPatientInfo', patientInfo);
 app.use('/API/requestAllCasePatient', requestAllCasePatient);
 app.use('/API/requestAllCaseDoctor', requestAllCaseDoctor);
+app.use('/API/requestAllCase', requestAllCase);
 app.use('/API/addCase', addCase);
 app.use('/API/addPatient', addPatient);
 app.use('/API/deleteCase', deleteCase);
 app.use('/API/updateCaseDoctor', updateCaseDoctor);
 app.use('/API/updateCasePatient', updateCasePatient);
 
-app.use('/mooc',mooc);
+app.use('/mooc', mooc);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

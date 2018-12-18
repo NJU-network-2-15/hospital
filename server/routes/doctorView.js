@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
     // }else{
     //     res.redirect(301, '/doctorLogin');
     // }
-    res.render('doctorview',{'doctorID':req.session.doctorID,'doctorName':req.session.doctorName});
-
+    // res.render('doctorview',{'doctorID':req.session.doctorID,'doctorName':req.session.doctorName});
+    res.render('Allquestions');
     // res.send()
 });
 

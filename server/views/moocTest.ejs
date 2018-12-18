@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../javascripts/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<!--<input id="files" type="file" name="file"/>-->
+
+<img id='test' src="134.175.124.206:3000/images/doctor/A0001_xiangge.jpg" style="height: 200px;width: 100px"/>
+<script>
+
+
+    //addCase
+    $(document).ready(function () {
+        // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+        $.ajax({
+            url: '/API/addCase',
+            type: "POST",
+            // dataType:"html",
+            data: {
+                'account': 'yumei',
+                'password': 'yumei',
+                'patientName': 'yumei002',
+                'patientID': 'yumei002',
+                'caseType': 'fuke',
+                'gender': 'male',
+                'age': 14,
+                'phone': 110,
+                'caseDescription': '123',
+                'casePicUrls': JSON.stringify([{'picUrl': '/'}])
+            },
+            success: function (result) {
+                console.log(result)
+                if (result != 'Failed') {
+                    console.log(result);
+                    $('#test').attr("src", result.picUrl);
+                } else {
+                    console.log('wrong')
+
+                }
+            }
+        });
+    });
+    // addPatient
+    // $(document).ready(function(){
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/addPatient',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //             'account':'yumei',
+    //             'password':'yumei',
+    //             'patientName':'yumei',
+    //             'gender':'male',
+    //             'age':1,
+    //             'phone':111111,
+    //             'medicalHistory':'noo',
+    //             'allergicHistory':'noooo',
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+    //updatePatientInfo
+    // $(document).ready(function(){
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/updatePatientInfo',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //             'account':'yumei1',
+    //             'old_password':'yumei',
+    //             'password':'xiangge',
+    //             'patientName':'yuyuyuyu',
+    //             'gender':'male',
+    //             'age':123,
+    //             'phone':1111,
+    //             'medicalHistory':'',
+    //             'allergicHistory':''
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+
+    // doctor infomation
+    // $(document).ready(function() {
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/requestDoctorInfo',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //             'doctorName': 'xiangge',
+    //             'department': 'fuke',
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+    // doctor login
+    // $(document).ready(function() {
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/requestDoctorLogin',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //             'account': 'xiangge',
+    //             'password': 'xiangge',
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+    // 获得某一个病人全部的病例
+    // $(document).ready(function() {
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/requestAllCasePatient',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //             'patientID': '000000',
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+    // 医生查看和自己所在科室的所有问题
+    // $(document).ready(function() {
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/requestAllCaseDoctor',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //             'department': '妇科',
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+
+    // 病人删除自己的病例
+    // $(document).ready(function() {
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/deleteCase',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //             'caseID': '1544802373007',
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+    // 医生回答病例
+    // $(document).ready(function() {
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/updateCaseDoctor',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //             'caseID': '1544793667168',
+    //             'account':'xiangge',
+    //             'password':'xiangge',
+    //             'doctorID':'A0001',
+    //             'doctorName':'xiangge',
+    //             'doctorLevel':'666',
+    //             'proposal':'sleep',
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+    // 用户上传病例图片 !!
+    // $("#files").change(function () {
+    //     console.log($("#files")[0].files);
+    //     myFile = $("#files")[0].files;
+    //     console.log(myFile);
+    //     var data = new FormData();
+    //     data.append('data', myFile);
+    //     for (var [key, value] of data.entries()) {
+    //         console.log(key, value);
+    //     }
+    //     $.ajax({
+    //         url: '/API/updateCasePatient',
+    //         type: "POST",
+    //         // dataType:"html",
+    //         processData:false,
+    //         data:data,
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+    // 医生更新用户提问的信息
+    // $(document).ready(function() {
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/updateCaseDoctor',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //             'caseID': '1544793667168',
+    //             'account':'xiangge',
+    //             'password':'xiangge',
+    //             'doctorID':'A0001',
+    //             'doctorName':'xiangge',
+    //             'doctorLevel':'666',
+    //             'proposal':'sleep',
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+    // 获得病人全部的病例
+    // $(document).ready(function() {
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/requestAllCase',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+    // 获取某个科室医生
+    // $(document).ready(function() {
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/requestDoctorInfoByDepartment',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //              'department':'1111'
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+    // 获取某个名字医生
+    // $(document).ready(function() {
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/requestDoctorInfoByName',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //              'doctorName':'1111'
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+
+    // 获取某个病人的全部信息
+    // $(document).ready(function() {
+    //     // $('.name').text($.cookie('doctorID') + '   ' + $.cookie('doctorName'));
+    //     $.ajax({
+    //         url: '/API/requestPatientInfo',
+    //         type: "GET",
+    //         // dataType:"html",
+    //         data: {
+    //              'patientID':'1111'
+    //         },
+    //         success: function (result) {
+    //             console.log(result)
+    //             if (result != 'Failed') {
+    //                 console.log(result);
+    //                 $('#test').attr("src", result.picUrl);
+    //             } else {
+    //                 console.log('wrong')
+    //
+    //             }
+    //         }
+    //     });
+    // });
+
+
+</script>
+</body>
+</html>

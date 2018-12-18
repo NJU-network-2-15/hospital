@@ -28,7 +28,7 @@ router.get('/', function (req, res, next) {
                     'doctorName': req.session.doctorName,
                     'account': req.session.account,
                     'password': req.session.password,
-                    'url':'/doctorView'
+                    'url':'/allQuestions'
                 });
             } else {
                 res.send('Failed');
