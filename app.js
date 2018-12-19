@@ -118,7 +118,7 @@ mongoose.connection.on("connected", function () {
 mongoose.connection.on("disconnected", function () {
   console.log("MongoDB connected disconnected.")
 })
-mongoose.connect('mongodb://localhost:27017/hospital');
+mongoose.connect('mongodb://134.175.124.206:27017/hospital');
 
 
 module.exports = app;
