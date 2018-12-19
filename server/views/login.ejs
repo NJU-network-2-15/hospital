@@ -30,57 +30,57 @@
             $(".submit_btn").click(function () {
                 var account = $('#account').val()
                 var pwd = $('#pwd').val()
-                $.ajax({
-                    url: '/API/requestPatientLogin',
-                    type: "GET",
-                    // dataType:"html",
-                    data: {'account': account, 'password': pwd},
-                    success: function (result) {
-                        if (result != 'Failed') {
-                            console.log(result);
-                            window.location.href = result.url
-                        } else {
-                            console.log('wrong')
-                            alert('用户名或密码错误');
+                // $.ajax({
+                //     url: '/API/requestPatientLogin',
+                //     type: "GET",
+                //     // dataType:"html",
+                //     data: {'account': account, 'password': pwd},
+                //     success: function (result) {
+                //         if (result != 'Failed') {
+                //             console.log(result);
+                //             window.location.href = result.url
+                //         } else {
+                //             console.log('wrong')
+                //             alert('用户名或密码错误');
+                //         }
+                //     }
+                // });
+                if(account.indexOf('_') == 0){
+                    console.log('doctor login request');
+                    $.ajax({
+                        url:'/API/requestDoctorLogin',
+                        type:"GET",
+                        // dataType:"html",
+                        data:{'account':account,'password':pwd},
+                        success:function(result){
+                            if(result!='Failed'){
+                                console.log(result);
+                                window.location.href = result.url
+                            }else {
+                                console.log('wrong')
+                                alert('用户名或密码错误');
+                            }
                         }
-                    }
-                });
-                // if(account.indexOf('doctor') == 0){
-                //     console.log('doctor login request');
-                //     $.ajax({
-                //         url:'/API/requestDoctorLogin',
-                //         type:"GET",
-                //         // dataType:"html",
-                //         data:{'account':account,'password':pwd},
-                //         success:function(result){
-                //             if(result!='Failed'){
-                //                 console.log(result);
-                //                 window.location.href = result.url
-                //             }else {
-                //                 console.log('wrong')
-                //                 alert('用户名或密码错误');
-                //             }
-                //         }
-                //     });
-                // }
-                // if(account.indexOf('xiangge') == 0){
-                //     console.log('patient login request');
-                //     $.ajax({
-                //         url:'/API/requestPatientLogin',
-                //         type:"GET",
-                //         // dataType:"html",
-                //         data:{'account':account,'password':pwd},
-                //         success:function(result){
-                //             if(result!='Failed'){
-                //                 console.log(result);
-                //                 window.location.href = result.url
-                //             }else {
-                //                 console.log('wrong')
-                //                 alert('用户名或密码错误');
-                //             }
-                //         }
-                //     });
-                // }
+                    });
+                }
+                else{
+                    console.log('patient login request');
+                    $.ajax({
+                        url:'/API/requestPatientLogin',
+                        type:"GET",
+                        // dataType:"html",
+                        data:{'account':account,'password':pwd},
+                        success:function(result){
+                            if(result!='Failed'){
+                                console.log(result);
+                                window.location.href = result.url
+                            }else {
+                                console.log('wrong')
+                                alert('用户名或密码错误');
+                            }
+                        }
+                    });
+                }
             });
         });
     </script>

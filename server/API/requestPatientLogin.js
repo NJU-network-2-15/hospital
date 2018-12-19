@@ -14,10 +14,6 @@ router.get('/', function (req, res, next) {
             res.send('Failed');
         } else {
             if (doc.length > 0) {
-                req.session.patientName = doc[0].patientName;
-                req.session.patientID = doc[0].patientID;
-                req.session.account = doc[0].account;
-                req.session.password = doc[0].password;
                 next()
             } else {
                 res.send('Failed');
