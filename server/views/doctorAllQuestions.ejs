@@ -1,234 +1,99 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="icon" href="../../favicon.ico">
+	<meta charset="utf-8">
+	<!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+	<link rel="icon" href="../../favicon.ico">
 
-<title>病情先诊系统</title>
+	<title>病情先诊系统</title>
 
 	<script src="../javascripts/jquery-3.3.1.min.js"></script>
 	<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
 	<script type="text/javascript" src="../bootstrap/js/bootstrap.js"></script>
 	<!-- Custom styles for this template -->
 	<link href="../stylesheets/dashboard.css" rel="stylesheet">
-
-<!-- Custom styles for this template -->
-
 </head>
 
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">病情先诊系统</a>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/login">Logout</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-
+<nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
-				<ul class="nav nav-sidebar">
-					<li><a href="#">医师端 <span class="sr-only">(current)</span></a></li>
-					<!--<li><a href="doctorInfo.ejs">修改<span class="sr-only"></span></a></li>-->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+					aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">病情先诊系统</a>
+			<a id="session.doctorID" style="display: none"><%=doctorID%></a>
+			<a id="session.department" style="display: none"><%=department%></a>
+			<a id="session.account" style="display: none"><%=account%></a>
+			<a id="session.password" style="display: none"><%=password%></a>
+			<a id="session.doctorLevel" style="display: none"><%=doctorLevel%></a>
+			<a id="session.doctorName" style="display: none"><%=doctorName%></a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#" id="state"></a></li>
+				<li><a href="#" id="DoctorName"></a></li>
+				<li><a href="/login">Logout</a></li>
+			</ul>
+			<!--<form class="navbar-form navbar-right">-->
+			<!--<input type="text" class="form-control" placeholder="Search...">-->
+			<!--</form>-->
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			<ul class="nav nav-sidebar">
+				<li><a href="#">医师端 科室：<%=department%><span class="sr-only">(current)</span></a></li>
+			</ul>
+			<ul class="nav nav-sidebar">
+				<li><a href="/doctorAllQuestions">所有问题</a></li>
+				<li><a href="/doctorInfo">医师信息</a></li>
+			</ul>
+		</div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-				</ul>
-			</div>
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h2 class="sub-header">问题列表</h2>
-
-				<div class="table-responsive">
-					<table class="table table-striped table-hover">
-						<thead>
-							<tr>
-								<th>病人ID</th>
-								<th>病人姓名</th>
-								<th>发起的提问</th>
-								<th>诊断意见</th>
-							</tr>
-						</thead>
-						<tbody id='tbMain'>
-							<!-- <tr> -->
-							<!-- <td>1,001</td> -->
-							<!-- <td>Lorem</td> -->
-							<!-- <td>ipsasdffffffaaaaaaaaaaaaaaadfffffffsdafum</td> -->
-							<!-- <td>dolasfdddddddddddfddfdddddddddfffffffffor</td> -->
-							<!-- </tr> -->
-							<tr>
-								<td>1</td>
-								<td>Lorem</td>
-								<td>ipsasdffffffaaaaaaaaaaaaaaadfffffffsdafum</td>
-								<td>dolasfdddddddddddfddfdddddddddfffffffffor</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>Lorem</td>
-								<td>iasdpsasdffffffaaaaaaaaaaaaaaadfffffffsdafum</td>
-								<td>dolasfdddddddddddfddfdddddddddfffffffffor</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>Lorem</td>
-								<td>ipsasdffffffaaaasdffsdafum</td>
-								<td>dolasfdddddddddddfddfdddddmnmnmnnmnmnmddddfffffffffor</td>
-							</tr>
-
-						</tbody>
-					</table>
-				</div>
+			<h2 class="sub-header">问题列表</h2>
+			<div class="table-responsive">
+				<table class="table table-striped table-hover">
+					<thead>
+					<tr>
+						<th>状态</th>
+						<th>病例号</th>
+						<th>提问人</th>
+						<th>病例类别</th>
+						<th>病例描述</th>
+						<th>提交时间</th>
+						<th>最后回复时间</th>
+						<th>详情</th>
+					</tr>
+					</thead>
+					<tbody id="tbMain">
+					<!--<tr>-->
+					<!--<td><a href="/DoctorInfo">张三</a></td>-->
+					<!--<td>2018/12/13</td>-->
+					<!--<td>内科</td>-->
+					<!--<td>普通感冒怎么治疗</td>-->
+					<!--</tr>-->
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
+</div>
+</div>
 
-	<script type="text/javascript">
-		var caseDataArray;
-		//医生查看和自己所在科室的所有问题
-		$.ajax({
-			type : 'GET',
-			url : '/API/requestAllCaseDoctor',
-			async : false,//设置成同步
-			// dataType : "html",
-			data : {
-				'department' : '妇科',
-			},
-			success : function(result) {
-				caseDataArray = result;
-				console.log(caseDataArray);
-			},
-			error : function() {
-				alert('服务器走丢了');
-			}
-		});
-
-		var tbody = document.getElementById('tbMain');
-		for (var i = 0; i < caseDataArray.length; i++) { //遍历一下json数据
-			var trow = getDataRow(caseDataArray[i], i); //定义一个方法,返回tr数据           <-------------此处已修改
-			tbody.appendChild(trow);
-		}
-		function getDataRow(h, i) {
-			var row = document.createElement('tr'); //创建行
-			var state = document.createElement('td'); //创建第一列caseID
-			var span = document.createElement('span');
-			if (h.lastTime == "") {
-				span.setAttribute('class', 'label label-danger');
-				span.innerHTML = "未完成";
-			} else {
-				span.setAttribute('class', 'label label-success');
-				span.innerHTML = "完成";
-			}
-			state.appendChild(span);
-			row.appendChild(state);
-			var caseID = document.createElement('td'); //创建第一列caseID
-			caseID.innerHTML = h.caseID;
-			row.appendChild(caseID);
-			var patientName = document.createElement('td');//创建第二列patientName
-			patientName.innerHTML = h.patientName;
-			row.appendChild(patientName);
-			var problem = document.createElement('td');//创建第三列problem
-			problem.innerHTML = h.problem;
-			row.appendChild(problem);
-			var problem = document.createElement('td');//创建第四列advice
-			problem.innerHTML = h.problem;
-			row.appendChild(problem);
-
-			var button = document.createElement('input'); //创建一个input控件
-			button.setAttribute('type', 'button'); //type="button"
-			button.setAttribute('value', '点击查看该病例');
-			button.setAttribute('class', 'btn btn-primary');
-			button.setAttribute('data-toggle', 'modal');
-			button.setAttribute('data-target', '#myModal' + i);
-
-			document
-					.write("<div class=\"modal fade\" id=\"myModal" + i + "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\n"
-							+ "    <div class=\"modal-dialog\">\n"
-							+ "        <div class=\"modal-content\">\n"
-							+ "            <div class=\"modal-header\">\n"
-							+ "                <h4 class=\"modal-title\" id=\"myModalLabel" + i + "\">\n"
-							+ "                </h4>\n"
-							+ "            </div>\n"
-							+ "            <div class=\"modal-body\" id=\"myModalBody" + i + "\">\n"
-							+ "            </div>\n"
-							+ "            <div class=\"modal-footer\">\n"
-							+ "                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">关闭\n"
-							+ "                </button>\n"
-							+ "            </div>\n"
-							+ "        </div><!-- /.modal-content -->\n"
-							+ "    </div><!-- /.modal -->\n" + "</div>");
-
-			var myModalLabel = document.getElementById("myModalLabel" + i);
-
-			myModalLabel.innerHTML = h.patientName + '的病例';
-
-			var myModalBody = document.getElementById("myModalBody" + i);
-
-			var modal_state = document.createElement('span');
-			if (h.lastTime == "") {
-				modal_state.setAttribute('class', 'label label-danger');
-				modal_state.innerHTML = "未完成";
-			} else {
-				modal_state.setAttribute('class', 'label label-success');
-				modal_state.innerHTML = "完成";
-			}
-			myModalBody.appendChild(modal_state);
-
-			var body = document.createElement('div');
-			var description = document.createElement('h4');
-			description.innerHTML = '病例描述';
-			myModalBody.appendChild(description);
-			body.innerHTML = h.caseDescription;
-			myModalBody.appendChild(body);
-
-			if (PatientName == h.patientName) { //                  <------------此处加了判断
-				var casePicUrlsDiv = document.createElement('div');
-				for (j = 0; j < h.casePicUrls.length; j++) {
-					if (h.casePicUrls[j].picUrl != "0") {
-						var pics = document.createElement("img");
-						pics.style.width = '100px';
-						pics.style.height = '100px';
-						pics.setAttribute('src', "http://134.175.124.206:3000"
-								+ h.casePicUrls[j].picUrl);
-						casePicUrlsDiv.appendChild(pics);
-					}
-				}
-				myModalBody.appendChild(casePicUrlsDiv);
-			}
-
-			if (h.solution.length > 0) {
-				var solution = document.createElement('div');
-				var solutionTitle = document.createElement('h4');
-				solutionTitle.innerHTML = '医生' + h.solution[0].doctorName
-						+ '给出的建议';
-				myModalBody.appendChild(solutionTitle);
-				solution.innerHTML = h.solution[0].proposal;
-				myModalBody.appendChild(solution);
-			} else {
-				var solutionTitle = document.createElement('h4');
-				solutionTitle.innerHTML = '尚无医生给出的建议';
-				myModalBody.appendChild(solutionTitle);
-			}
-
-			details.appendChild(button);
-			row.appendChild(details);
-			return row; //返回tr数据
-		}
-	</script>
+<!--引入外部文件的方式-->
+<script type="text/javascript" src="../javascripts/allQuestionsDoctor.js"></script>
 </body>
 </html>

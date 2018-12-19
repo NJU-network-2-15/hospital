@@ -1,17 +1,24 @@
 var ajaxURL = "/API/";
-var requestAllCase = "requestAllCase";
+var requestAllCase = "requestAllCaseDoctor";
 var caseDataArray;
 
-var state = document.getElementById("state");
+var state = document.getElementById("state");//<------------------需要修改
 state.innerHTML = "已登录";
-var name = document.getElementById("session.patientName").innerHTML;
-document.getElementById('PatientName').innerHTML = name;
-$.ajax({
+
+var doctor_id = document.getElementById("session.doctorID").innerHTML;
+var doctor_name = document.getElementById("session.doctorName").innerHTML;
+var doctor_account = document.getElementById("session.account").innerHTML;
+var doctor_password = document.getElementById("session.password").innerHTML;
+var doctor_level = document.getElementById("session.doctorLevel").innerHTML;
+var caseType = document.getElementById("session.department").innerHTML;
+document.getElementById('DoctorName').innerHTML = doctor_name;
+
+    $.ajax({
     type: 'GET',
     async: false,//设置成同步
     url: ajaxURL + requestAllCase,
     dataType: "json",
-    data: {},
+    data: {'caseType':caseType},
     success: function (result) {
         caseDataArray = result;
         console.log(caseDataArray);
@@ -22,11 +29,9 @@ $.ajax({
 });
 
 var tbody = document.getElementById('tbMain');
-if(caseDataArray!='Failed'){
-    for (var i = 0; i < caseDataArray.length; i++) { //遍历一下json数据
-        var trow = getDataRow(caseDataArray[i],i); //定义一个方法,返回tr数据
-        tbody.appendChild(trow);
-    }
+for (var i = 0; i < caseDataArray.length; i++) { //遍历一下json数据
+    var trow = getDataRow(caseDataArray[i], i); //定义一个方法,返回tr数据           <-------------此处已修改
+    tbody.appendChild(trow);
 }
 
 function getDataRow(h, i) {
@@ -45,9 +50,9 @@ function getDataRow(h, i) {
     var caseID = document.createElement('td'); //创建第一列caseID
     caseID.innerHTML = h.caseID;
     row.appendChild(caseID);
-    var patientName = document.createElement('td');//创建第二列patientName
-    patientName.innerHTML = h.patientName;
-    row.appendChild(patientName);
+    var doctorName = document.createElement('td');//创建第二列doctorName
+    doctorName.innerHTML = h.patientName;
+    row.appendChild(doctorName);
     var caseType = document.createElement('td');//创建第三列caseType
     caseType.innerHTML = h.caseType;
     row.appendChild(caseType);
@@ -101,7 +106,7 @@ function getDataRow(h, i) {
 
     var myModalLabel = document.getElementById("myModalLabel" + i);
 
-    myModalLabel.innerHTML = h.patientName + '的病例';
+    myModalLabel.innerHTML = h.doctorName + '的病例';
 
     var myModalBody = document.getElementById("myModalBody" + i);
 
@@ -122,21 +127,18 @@ function getDataRow(h, i) {
     body.innerHTML = h.caseDescription;
     myModalBody.appendChild(body);
 
-    console.log(name);
-    console.log(h.patientName);
-    if (name == h.patientName) {  //                  <------------此处加了判断
-        var casePicUrlsDiv = document.createElement('div');
-        for (j = 0; j < h.casePicUrls.length; j++) {
-            if (h.casePicUrls[j].picUrl != "0") {
-                var pics = document.createElement("img");
-                pics.style.width = '100px';
-                pics.style.height = '100px';
-                pics.setAttribute('src', 'http://134.175.124.206:3000' + h.casePicUrls[j].picUrl);
-                casePicUrlsDiv.appendChild(pics);
-            }
+
+    var casePicUrlsDiv = document.createElement('div');
+    for (j = 0; j < h.casePicUrls.length; j++) {
+        if (h.casePicUrls[j].picUrl != "0") {
+            var pics = document.createElement("img");
+            pics.style.width = '100px';
+            pics.style.height = '100px';
+            pics.setAttribute('src', "http://134.175.124.206:3000" + h.casePicUrls[j].picUrl);
+            casePicUrlsDiv.appendChild(pics);
         }
-        myModalBody.appendChild(casePicUrlsDiv);
     }
+    myModalBody.appendChild(casePicUrlsDiv);
 
     if (typeof (h.solution.length) != "undefined"){
         if (h.solution.length > 0) {
@@ -150,18 +152,61 @@ function getDataRow(h, i) {
             }
         }
         else {
-                var solutionTitle = document.createElement('h4');
-                solutionTitle.innerHTML = '尚无医生给出的建议';
-                myModalBody.appendChild(solutionTitle);
-            }
+            var solutionTitle = document.createElement('h4');
+            solutionTitle.innerHTML = '尚无医生给出的建议';
+            myModalBody.appendChild(solutionTitle);
+        }
     } else {
         var solutionTitle = document.createElement('h4');
         solutionTitle.innerHTML = '尚无医生给出的建议';
         myModalBody.appendChild(solutionTitle);
     }
-
+    /*此处新增医生提交建议 开始*/
+    var proposal = document.createElement('textarea');
+    proposal.setAttribute('class', 'form-control');
+    proposal.setAttribute('rows', '4');
+    proposal.setAttribute('id', 'textarea' + i.toString());
+    myModalBody.appendChild(proposal);
+    var sumbit = document.createElement('Button');
+    sumbit.setAttribute('class', 'btn btn-primary');
+    sumbit.innerHTML = "提交我的建议";
+    sumbit.setAttribute('id', 'sumbit' + i.toString());
+    myModalBody.appendChild(sumbit);
+    $(function () {
+        $("#sumbit" + i.toString()).click(function () {
+            sumbitProposal(h.caseID, $("#textarea" + i.toString()).val());
+        });
+    })
+    /*此处新增医生提交建议 结尾*/
     details.appendChild(button);
     row.appendChild(details);
     return row; //返回tr数据
+}
+
+
+function sumbitProposal(caseID, value) {
+    $.ajax({
+        type: 'GET',
+        async: false,//设置成同步
+        url: ajaxURL + "updateCaseDoctor",
+        dataType: "html",
+        data: {
+            'caseID': caseID,
+            'account': doctor_account,   //《------------换成登录的医生account
+            'password': doctor_password,//《------------换成登录的医生密码
+            'doctorID': doctor_id,//《------------换成登录的医生的id
+            'doctorName': doctor_name,//《------------换成登录的医生名字
+            'doctorLevel': doctor_level,//《------------换成登录的医生登记
+            'proposal': value,
+        },
+        success: function (result) {
+            alert('提交成功！');
+            window.location.href = '/doctorAllQuestions';
+        },
+        error: function () {
+            alert('提交失败！');
+            window.location.href = '/doctorAllQuestions';
+        }
+    });
 }
 

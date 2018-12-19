@@ -27,6 +27,7 @@ var updateCaseDoctor = require('./server/API/updateCaseDoctor');
 var updateCasePatient = require('./server/API/updateCasePatient');
 var doctorAllQuestions = require('./server/routes/doctorAllQuestions');
 var doctorInfo = require('./server/routes/doctorInfo');
+var requestCaseSovled = require('./server/API/requestAllCaseDoctorSolved');
 
 var allQuestions = require('./server/routes/allQuestions');
 var patientview = require('./server/routes/patientInfo');
@@ -83,6 +84,7 @@ app.use('/doctorInfo', doctorInfo);
 
 
 // api
+app.use('/API/requestAllCaseDoctorSovled', requestCaseSovled);
 app.use('/API/requestPatientLogin', requestPatientLogin);
 app.use('/API/updatePatientInfo', updatePatientInfo);
 app.use('/API/requestDoctorLogin', requestLogin);

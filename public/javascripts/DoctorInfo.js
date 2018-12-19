@@ -1,10 +1,16 @@
 var ajaxURL = "/API/";
 var requestDoctorInfo = "requestDoctorInfoByID";
-var requestAllCaseDoctor = "requestAllCaseDoctor";
+var requestAllCaseDoctor = "requestAllCaseDoctorSovled";
 var doctorInfo;
 var doctorCase;
-var doctor_id = document.getElementById('session.doctorID').innerHTML;
-var type = document.getElementById('session.department').innerHTML;
+
+var doctor_id = document.getElementById("session.doctorID").innerHTML;
+var doctor_name = document.getElementById("session.doctorName").innerHTML;
+var doctor_account = document.getElementById("session.account").innerHTML;
+var doctor_password = document.getElementById("session.password").innerHTML;
+var doctor_level = document.getElementById("session.doctorLevel").innerHTML;
+var caseType = document.getElementById("session.department").innerHTML;
+
 $.ajax({
     type: 'GET',
     async: false,//设置成同步
@@ -25,7 +31,7 @@ $.ajax({
     async: false,//设置成同步
     url: ajaxURL + requestAllCaseDoctor,
     // dataType: "json",
-    data: {'caseType': type},//<------------------换成科室
+    data: {'doctorID': doctor_id},//<------------------换成科室
     success: function (result) {
         doctorCase = result;
         console.log(doctorCase);
@@ -66,7 +72,7 @@ function getDataRow(h, i) {
     var row = document.createElement('tr'); //创建行
     var state = document.createElement('td'); //创建第一列caseID
     var span = document.createElement('span');
-    if (h.lastTime == "") {
+    if (h.solution.length == 0) {                                             // <-------------此处将判断是否完成的状态的判断条件 改成不再是根据lastTime 而是根据是否有soltion  下同
         span.setAttribute('class', 'label label-danger');
         span.innerHTML = "未完成";
     } else {
@@ -78,9 +84,6 @@ function getDataRow(h, i) {
     var caseID = document.createElement('td'); //创建第一列caseID
     caseID.innerHTML = h.caseID;
     row.appendChild(caseID);
-    var doctorName = document.createElement('td');//创建第二列doctorName
-    doctorName.innerHTML = h.doctorName;
-    row.appendChild(doctorName);
     var caseType = document.createElement('td');//创建第三列caseType
     caseType.innerHTML = h.caseType;
     row.appendChild(caseType);
@@ -91,10 +94,19 @@ function getDataRow(h, i) {
     startTime.innerHTML = h.startTime;
     row.appendChild(startTime);
     var lastTime = document.createElement('td');//创建第六列lastTime
-    if (h.lastTime == "") {
+    if (h.solution.length == 0) {                                                    // <-------------此处已修改   同上
         lastTime.innerHTML = "未完成";
     } else {
-        lastTime.innerHTML = h.lastTime;
+        /**此处修改*/
+        /*得到最近回复时间*/
+        var lastResponse = new Date(Date.parse(h.solution[0].responseTime));
+        for (j = 1; j < h.solution.length; j++) {
+            if (lastResponse < h.solution[j].responseTime) {
+                lastResponse = h.solution[j].responseTime;
+            }
+        }
+        lastTime.innerHTML = new Date(lastResponse).toLocaleString();
+        /**此处修改*/
     }
     row.appendChild(lastTime);
     var details = document.createElement('td');//创建第六列lastTime
@@ -130,7 +142,7 @@ function getDataRow(h, i) {
     var myModalBody = document.getElementById("myModalBody" + i);
 
     var modal_state = document.createElement('span');
-    if (h.lastTime == "") {
+    if (h.solution.length == 0) {                               // <-------------此处已修改   同上
         modal_state.setAttribute('class', 'label label-danger');
         modal_state.innerHTML = "未完成";
     } else {
@@ -158,13 +170,22 @@ function getDataRow(h, i) {
     }
     myModalBody.appendChild(casePicUrlsDiv);
 
-    if (h.solution.length > 0) {
-        var solution = document.createElement('div');
-        var solutionTitle = document.createElement('h4');
-        solutionTitle.innerHTML = '医生' + h.solution[0].doctorName + '给出的建议' + '   时间：' + h.solution[0].responseTime;
-        myModalBody.appendChild(solutionTitle);
-        solution.innerHTML = h.solution[0].proposal;
-        myModalBody.appendChild(solution);
+    if (typeof (h.solution.length) != "undefined"){
+        if (h.solution.length > 0) {
+            for (var i = 0;i<h.solution.length;i++){
+                var solution = document.createElement('div');
+                var solutionTitle = document.createElement('h4');
+                solutionTitle.innerHTML = '医生' + h.solution[i].doctorName + '给出的建议' + '      时间：' + h.solution[i].responseTime;
+                myModalBody.appendChild(solutionTitle);
+                solution.innerHTML = h.solution[i].proposal;
+                myModalBody.appendChild(solution);
+            }
+        }
+        else {
+            var solutionTitle = document.createElement('h4');
+            solutionTitle.innerHTML = '尚无医生给出的建议';
+            myModalBody.appendChild(solutionTitle);
+        }
     } else {
         var solutionTitle = document.createElement('h4');
         solutionTitle.innerHTML = '尚无医生给出的建议';
@@ -172,7 +193,51 @@ function getDataRow(h, i) {
     }
 
 
+    /*此处新增医生提交建议 开始*/
+    var proposal = document.createElement('textarea');
+    proposal.setAttribute('class', 'form-control');
+    proposal.setAttribute('rows', '4');
+    proposal.setAttribute('id', 'textarea' + i.toString());
+    myModalBody.appendChild(proposal);
+    var sumbit = document.createElement('Button');
+    sumbit.setAttribute('class', 'btn btn-primary');
+    sumbit.innerHTML = "提交我的建议";
+    sumbit.setAttribute('id', 'sumbit' + i.toString());
+    myModalBody.appendChild(sumbit);
+    $(function () {
+        $("#sumbit" + i.toString()).click(function () {
+            sumbitProposal(h.caseID, $("#textarea" + i.toString()).val());
+        });
+    })
+    /*此处新增医生提交建议 结尾*/
     details.appendChild(button);
     row.appendChild(details);
     return row; //返回tr数据
+}
+
+
+function sumbitProposal(caseID, value) {
+    $.ajax({
+        type: 'GET',
+        async: false,//设置成同步
+        url: ajaxURL + "updateCaseDoctor",
+        dataType: "html",
+        data: {
+            'caseID': caseID,
+            'account': doctor_account,   //《------------换成登录的医生account
+            'password': doctor_password,//《------------换成登录的医生密码
+            'doctorID': doctor_id,//《------------换成登录的医生的id
+            'doctorName': doctor_name,//《------------换成登录的医生名字
+            'doctorLevel': doctor_level,//《------------换成登录的医生登记
+            'proposal': value,
+        },
+        success: function (result) {
+            alert('提交成功！');
+            window.location.href = '/doctorInfo';
+        },
+        error: function () {
+            alert('提交失败！');
+            window.location.href = '/doctorInfo';
+        }
+    });
 }

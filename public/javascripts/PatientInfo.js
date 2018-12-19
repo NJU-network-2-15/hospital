@@ -65,7 +65,7 @@ function getDataRow(h, i) {
     var row = document.createElement('tr'); //创建行
     var state = document.createElement('td'); //创建第一列caseID
     var span = document.createElement('span');
-    if (h.lastTime == "") {
+    if (h.solution.length == 0) {                                             // <-------------此处将判断是否完成的状态的判断条件 改成不再是根据lastTime 而是根据是否有soltion  下同
         span.setAttribute('class', 'label label-danger');
         span.innerHTML = "未完成";
     } else {
@@ -77,9 +77,9 @@ function getDataRow(h, i) {
     var caseID = document.createElement('td'); //创建第一列caseID
     caseID.innerHTML = h.caseID;
     row.appendChild(caseID);
-    var patientName = document.createElement('td');//创建第二列patientName
-    patientName.innerHTML = h.patientName;
-    row.appendChild(patientName);
+    // var patientName = document.createElement('td');//创建第二列patientName
+    // patientName.innerHTML = h.patientName;
+    // row.appendChild(patientName);
     var caseType = document.createElement('td');//创建第三列caseType
     caseType.innerHTML = h.caseType;
     row.appendChild(caseType);
@@ -90,10 +90,19 @@ function getDataRow(h, i) {
     startTime.innerHTML = h.startTime;
     row.appendChild(startTime);
     var lastTime = document.createElement('td');//创建第六列lastTime
-    if (h.lastTime == "") {
+    if (h.solution.length == 0) {                                                    // <-------------此处已修改   同上
         lastTime.innerHTML = "未完成";
     } else {
-        lastTime.innerHTML = h.lastTime;
+        /**此处修改*/
+        /*得到最近回复时间*/
+        var lastResponse = new Date(Date.parse(h.solution[0].responseTime));
+        for (j = 1; j < h.solution.length; j++) {
+            if (lastResponse < h.solution[j].responseTime) {
+                lastResponse = h.solution[j].responseTime;
+            }
+        }
+        lastTime.innerHTML = new Date(lastResponse).toLocaleString();
+        /**此处修改*/
     }
     row.appendChild(lastTime);
     var details = document.createElement('td');//创建第六列lastTime
@@ -129,7 +138,7 @@ function getDataRow(h, i) {
     var myModalBody = document.getElementById("myModalBody" + i);
 
     var modal_state = document.createElement('span');
-    if (h.lastTime == "") {
+    if (h.solution.length == 0) {                               // <-------------此处已修改   同上
         modal_state.setAttribute('class', 'label label-danger');
         modal_state.innerHTML = "未完成";
     } else {
@@ -157,13 +166,22 @@ function getDataRow(h, i) {
     }
     myModalBody.appendChild(casePicUrlsDiv);
 
-    if (h.solution.length > 0) {
-        var solution = document.createElement('div');
-        var solutionTitle = document.createElement('h4');
-        solutionTitle.innerHTML = '医生' + h.solution[0].doctorName + '给出的建议' + '   时间：' + h.solution[0].responseTime;
-        myModalBody.appendChild(solutionTitle);
-        solution.innerHTML = h.solution[0].proposal;
-        myModalBody.appendChild(solution);
+    if (typeof (h.solution.length) != "undefined"){
+        if (h.solution.length > 0) {
+            for (var i = 0;i<h.solution.length;i++){
+                var solution = document.createElement('div');
+                var solutionTitle = document.createElement('h4');
+                solutionTitle.innerHTML = '医生' + h.solution[i].doctorName + '给出的建议' + '      时间：' + h.solution[i].responseTime;
+                myModalBody.appendChild(solutionTitle);
+                solution.innerHTML = h.solution[i].proposal;
+                myModalBody.appendChild(solution);
+            }
+        }
+        else {
+            var solutionTitle = document.createElement('h4');
+            solutionTitle.innerHTML = '尚无医生给出的建议';
+            myModalBody.appendChild(solutionTitle);
+        }
     } else {
         var solutionTitle = document.createElement('h4');
         solutionTitle.innerHTML = '尚无医生给出的建议';

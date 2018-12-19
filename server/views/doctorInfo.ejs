@@ -32,6 +32,11 @@
 			<a class="navbar-brand" href="#">病情先诊系统</a>
 			<a id="session.doctorID" style="display: none"><%=doctorID%></a>
 			<a id="session.department" style="display: none"><%=department%></a>
+			<a id="session.account" style="display: none"><%=account%></a>
+			<a id="session.password" style="display: none"><%=password%></a>
+			<a id="session.doctorLevel" style="display: none"><%=doctorLevel%></a>
+			<a id="session.doctorName" style="display: none"><%=doctorName%></a>
+
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
@@ -47,7 +52,7 @@
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li><a href="#">医师端 <span class="sr-only">(current)</span></a></li>
+				<li><a href="#">医师端 科室：<%=department%><span class="sr-only">(current)</span></a></li>
 			</ul>
 			<ul class="nav nav-sidebar">
 				<li><a href="/doctorAllQuestions">所有问题</a></li>
@@ -84,7 +89,7 @@
 			</div>
 		</div>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<h2 class="sub-header">本科室得提问</h2>
+			<h2 class="sub-header">所回答的问题</h2>
 			<div class="table-responsive">
 				<table class="table table-striped table-hover">
 					<thead>
