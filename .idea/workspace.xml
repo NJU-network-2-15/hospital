@@ -25,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/API/addCase.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1475">
-              <caret line="117" column="10" lean-forward="true" selection-start-line="101" selection-start-column="7" selection-end-line="117" selection-end-column="10" />
+            <state relative-caret-position="463">
+              <caret line="60" column="34" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -314,7 +314,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545221267496" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545222915740" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../node/wxserver" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -391,7 +391,7 @@
       <workItem from="1545119383083" duration="2809000" />
       <workItem from="1545182677721" duration="1589000" />
       <workItem from="1545184931496" duration="157000" />
-      <workItem from="1545213206699" duration="6584000" />
+      <workItem from="1545213206699" duration="7814000" />
     </task>
     <task id="LOCAL-00001" summary="12.13 changhao init">
       <created>1544674378249</created>
@@ -428,17 +428,24 @@
       <option name="project" value="LOCAL" />
       <updated>1545219376341</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="v1">
+      <created>1545221692374</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1545221692374</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102900000" />
+    <option name="totallyTimeSpent" value="104130000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1842" height="1042" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49858758" visible="true" weight="0.1830907" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49858758" visible="true" weight="0.1830907" />
       <window_info id="Structure" order="1" sideWeight="0.50141245" side_tool="true" weight="0.16461366" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -454,7 +461,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4994401" visible="true" weight="0.24917673" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.4994401" visible="true" weight="0.24917673" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5005599" side_tool="true" weight="0.32930845" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
@@ -480,7 +487,8 @@
     <MESSAGE value="12.15" />
     <MESSAGE value="初始API基本完善（剩下用户上传病例图片）" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/server/views/error.pug" />
@@ -768,8 +776,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/API/addCase.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1475">
-          <caret line="117" column="10" lean-forward="true" selection-start-line="101" selection-start-column="7" selection-end-line="117" selection-end-column="10" />
+        <state relative-caret-position="463">
+          <caret line="60" column="34" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
         </state>
       </provider>
     </entry>

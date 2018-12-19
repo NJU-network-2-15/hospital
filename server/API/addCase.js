@@ -24,109 +24,64 @@ Date.prototype.Format = function (fmt) {
     return fmt;
 };
 
-/* GET users listing. */
-// router.post('/', function (req, res, next) {
-//     var account = req.body.account;
-//     var pwd = req.body.password;
-//     patientModel.find({'account': account, 'password': pwd}, {'_id': 0},function (err, doc) {
-//         if (err) {
-//             console.log(err.message);
-//             res.send('Failed');
-//         } else {
-//             if (doc.length > 0) {
-//                 next();
-//             } else {
-//                 res.send('Failed');
-//             }
-//         }
-//     })
-//
-// });
 
 router.post('/', function (req, res, next) {
     var busboy = new Busboy({ headers: req.headers });
     //将流链接到busboy对象
     req.pipe(busboy);
-    // var patientID = req.body.patientID;
-    // var patientName = req.body.patientName;
     var caseID = new Date().getTime();
-    // var caseType = req.body.caseType;
-    // var gender = req.body.gender;
-    // var age = req.body.age;
-    // var phone = req.body.phone;
-    // var caseDescription = req.body.caseDescription;
     var startTime = new Date().Format("yyyy-MM-dd hh:mm:ss");
     var lastTime = '';
+    var solution = [];
     var casePicUrls = [];
-    // var medicalHistory = req.body.medicalHistory;
-    // var allergicHistory = req.body.allergicHistory;
+    var docs = new caseModel({
+        '_id':mongoose.Types.ObjectId(),
+        'caseID':caseID,
+        'startTime':startTime,
+        'lastTime':lastTime,
+        'solution':solution,
+    });
 
 
 
 
 //监听file事件获取文件(字段名，文件，文件名，传输编码，mime类型)
     busboy.on('file', function (filedname, file, filename, encoding, mimetype) {
+        const base = '/hospital/hospital/public';
         const path = '/images/case/' + caseID;
-        if (!fs.existsSync(path)) {
-            fs.mkdirSync(path);
+        if (!fs.existsSync(base + path)) {
+            fs.mkdirSync(base + path);
         }
         //创建一个可写流
-        let writeStream = fs.createWriteStream(path + '/' + filename);
+        const fname = new Date().getTime();
+        let writeStream = fs.createWriteStream(base + path + '/' + fname);
 
-        // //监听data事件，接收传过来的文件，如果文件过大，此事件将会执行多次，此方法必须写在file方法里
-        // file.on('data', function (data) {
-        //     writeStream.write(data);
-        // });
-        //
-        // //监听end事件，文件数据接收完毕，关闭这个可写流
-        // file.on('end', function (data) {
-        //     writeStream.end();
-        // });
-        // 可能会出现同名文件
+
         console.log('start uploading file');
-        casePicUrls.push({picUrl:path + '/' + filename});
+        casePicUrls.push({'picUrl':path + '/' + fname});
+        docs['casePicUrls'] = JSON.stringify(casePicUrls);
         file.pipe(writeStream);
     });
 
     busboy.on('field', function(key, value, keyTruncated, valueTruncated) {//处理其他非文件字段
-        console.log(key);
-        console.log(value);
+        docs[key] = value;
     });
 
     //监听finish完成事件,完成后重定向到百度首页
     busboy.on('finish', function () {
         console.log('upload file finished!');
+        docs.save(function (err, doc) {
+            if (err) {
+                console.log(err.message);
+                res.send('Failed');
+            } else {
+                res.send('Success');
+            }
+        })
     });
 
-    var solution = [];
-    // var docs = new caseModel({
-    //     '_id':mongoose.Types.ObjectId(),
-    //     'patientID':patientID,
-    //     'patientName':patientName,
-    //     'caseID':caseID,
-    //     'caseType':caseType,
-    //     'gender':gender,
-    //     'age':age,
-    //     'phone':phone,
-    //     'caseDescription':caseDescription,
-    //     'startTime':startTime,
-    //     'lastTime':lastTime,
-    //     'casePicUrls':casePicUrls,
-    //     'solution':solution,
-    //     'medicalHistory':medicalHistory,
-    //     'allergicHistory':allergicHistory
-    // });
 
 
-
-    // docs.save(function (err, doc) {
-    //     if (err) {
-    //         console.log(err.message);
-    //         res.send('Failed');
-    //     } else {
-    //         res.send('Success');
-    //     }
-    // })
 });
 
 module.exports = router;
