@@ -113,16 +113,16 @@ function getDataRow(h, i) {
     body.innerHTML = h.caseDescription;
     myModalBody.appendChild(body);
 
-    console.log(PatientName);
+    console.log(name);
     console.log(h.patientName);
-    if (PatientName == h.patientName) {  //                  <------------此处加了判断
+    if (name == h.patientName) {  //                  <------------此处加了判断
         var casePicUrlsDiv = document.createElement('div');
         for (j = 0; j < h.casePicUrls.length; j++) {
             if (h.casePicUrls[j].picUrl != "0") {
                 var pics = document.createElement("img");
                 pics.style.width = '100px';
                 pics.style.height = '100px';
-                pics.setAttribute('src', h.casePicUrls[j].picUrl);
+                pics.setAttribute('src', 'http://134.175.124.206:3000' + h.casePicUrls[j].picUrl);
                 casePicUrlsDiv.appendChild(pics);
             }
         }
@@ -132,7 +132,7 @@ function getDataRow(h, i) {
     if (h.solution.length > 0) {
         var solution = document.createElement('div');
         var solutionTitle = document.createElement('h4');
-        solutionTitle.innerHTML = '医生' + h.solution[0].doctorName + '给出的建议';
+        solutionTitle.innerHTML = '医生' + h.solution[0].doctorName + '给出的建议' + '   时间：' + h.solution[0].responseTime;
         myModalBody.appendChild(solutionTitle);
         solution.innerHTML = h.solution[0].proposal;
         myModalBody.appendChild(solution);

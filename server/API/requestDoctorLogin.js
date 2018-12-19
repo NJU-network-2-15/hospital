@@ -26,6 +26,7 @@ router.get('/', function (req, res, next) {
                 req.session.commend = doc[0].commend;
                 req.session.hospital = doc[0].hospital;
                 req.session.picUrl = doc[0].picUrl;
+                req.session.age = doc[0].age;
                 res.send({
                     'doctorID': req.session.doctorID,
                     'doctorName': req.session.doctorName,
@@ -38,8 +39,9 @@ router.get('/', function (req, res, next) {
                     'commend': req.session.commend,
                     'hospital': req.session.hospital,
                     'picUrl': req.session.picUrl,
+                    'age': req.session.age,
                     // TODO
-                    'url':'/doctorAllQuestions'
+                    'url':'/doctorInfo'
                 });
             } else {
                 res.send('Failed');

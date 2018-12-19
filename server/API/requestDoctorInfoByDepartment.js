@@ -15,7 +15,9 @@ router.get('/', function (req, res, next) {
         'doctorLevel':1,
         'commend': 1,
         'grade':1,
-        'picUrl':1
+        'picUrl':1,
+        'age':1,
+        'doctorID':1,
     }).lean().exec(function (err, doc) {
         if (err) {
             console.log(err.message);
@@ -33,6 +35,8 @@ router.get('/', function (req, res, next) {
                         'commend': doc[i].commend,
                         'grade': doc[i].grade,
                         'picUrl': doc[i].picUrl,
+                        'age':doc[i].age,
+                        'doctorID':doc[0].doctorID,
                     });
 
                 }

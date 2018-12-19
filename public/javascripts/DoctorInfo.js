@@ -1,18 +1,19 @@
 var ajaxURL = "/API/";
-var requestPatientInfo = "requestPatientInfo";
-var requestAllCasePatient = "requestAllCasePatient";
-var patientInfo;
-var patientCase;
-var patient_ID = document.getElementById('session.patientID').innerHTML;
+var requestDoctorInfo = "requestDoctorInfoByID";
+var requestAllCaseDoctor = "requestAllCaseDoctor";
+var doctorInfo;
+var doctorCase;
+var doctor_id = document.getElementById('session.doctorID').innerHTML;
+var type = document.getElementById('session.department').innerHTML;
 $.ajax({
     type: 'GET',
     async: false,//设置成同步
-    url: ajaxURL + requestPatientInfo,
+    url: ajaxURL + requestDoctorInfo,
     // dataType: "json",
-    data: {'patientID': patient_ID},//<------------------换成登录者的patientID
+    data: {'doctorID': doctor_id},//<------------------换成科室
     success: function (result) {
-        patientInfo = result;
-        console.log(patientInfo);
+        doctorInfo = result;
+        console.log(doctorInfo);
     },
     error: function () {
         alert('服务器走丢了');
@@ -22,12 +23,12 @@ $.ajax({
 $.ajax({
     type: 'GET',
     async: false,//设置成同步
-    url: ajaxURL + requestAllCasePatient,
+    url: ajaxURL + requestAllCaseDoctor,
     // dataType: "json",
-    data: {'patientID': patient_ID},//<------------------换成登录者的patientID
+    data: {'caseType': type},//<------------------换成科室
     success: function (result) {
-        patientCase = result;
-        console.log(patientCase);
+        doctorCase = result;
+        console.log(doctorCase);
     },
     error: function () {
         alert('服务器走丢了');
@@ -35,28 +36,28 @@ $.ajax({
 });
 
 /*此处已修改*/
-var patientIcon = document.getElementById('patientIcon');
-patientIcon.setAttribute('src', patientInfo.iconUrl);
+var doctorIcon = document.getElementById('doctorIcon');
+doctorIcon.setAttribute('src', doctorInfo.picUrl);
 /*此处已修改*/
-var patientNameIcon = document.getElementById('patientNameIcon');
-patientNameIcon.innerHTML = patientInfo.patientName;
+var doctorNameIcon = document.getElementById('doctorNameIcon');
+doctorNameIcon.innerHTML = doctorInfo.doctorName;
+var doctorLevel = document.getElementById('doctorLevel');
+doctorLevel.innerHTML = doctorInfo.doctorLevel;
+var doctorID = document.getElementById('doctorID');
+doctorID.innerHTML = doctorInfo.doctorID;
+var department = document.getElementById('department');
+department.innerHTML = doctorInfo.department;
 var age = document.getElementById('age');
-age.innerHTML = patientInfo.age + "岁";
-var patientID = document.getElementById('patientID');
-patientID.innerHTML = patientInfo.patientID;
-var gender = document.getElementById('gender');
-gender.innerHTML = patientInfo.gender;
-var phone = document.getElementById('phone');
-phone.innerHTML = patientInfo.phone;
-var medicalHistory = document.getElementById('medicalHistory');
-medicalHistory.innerHTML = patientInfo.medicalHistory;
-var allergicHistory = document.getElementById('allergicHistory');
-allergicHistory.innerHTML = patientInfo.allergicHistory;
+age.innerHTML = doctorInfo.age + "岁";
+var hospital = document.getElementById('hospital');
+hospital.innerHTML = doctorInfo.hospital;
+var description = document.getElementById('description');
+description.innerHTML = doctorInfo.description;
 
 var tbody = document.getElementById('tbMain');
-if(patientCase!='Failed'){
-    for (var i = 0; i < patientCase.length; i++) { //遍历一下json数据
-        var trow = getDataRow(patientCase[i],i); //定义一个方法,返回tr数据
+if(doctorCase!='Failed'){
+    for (var i = 0; i < doctorCase.length; i++) { //遍历一下json数据
+        var trow = getDataRow(doctorCase[i],i); //定义一个方法,返回tr数据
         tbody.appendChild(trow);
     }
 }
@@ -77,9 +78,9 @@ function getDataRow(h, i) {
     var caseID = document.createElement('td'); //创建第一列caseID
     caseID.innerHTML = h.caseID;
     row.appendChild(caseID);
-    var patientName = document.createElement('td');//创建第二列patientName
-    patientName.innerHTML = h.patientName;
-    row.appendChild(patientName);
+    var doctorName = document.createElement('td');//创建第二列doctorName
+    doctorName.innerHTML = h.doctorName;
+    row.appendChild(doctorName);
     var caseType = document.createElement('td');//创建第三列caseType
     caseType.innerHTML = h.caseType;
     row.appendChild(caseType);
@@ -124,7 +125,7 @@ function getDataRow(h, i) {
 
     var myModalLabel = document.getElementById("myModalLabel" + i);
 
-    myModalLabel.innerHTML = h.patientName + '的病例';
+    myModalLabel.innerHTML = h.doctorName + '的病例';
 
     var myModalBody = document.getElementById("myModalBody" + i);
 

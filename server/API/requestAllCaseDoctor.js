@@ -5,17 +5,13 @@ var caseModel = require('../../public/Model/caseModel');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    var department = req.query.department;
+    var department = req.query.caseType;
     caseModel.find({'caseType': department}, {'_id': 0},function (err, doc) {
         if (err) {
             console.log(err.message);
             res.send('Failed');
         } else {
-            if (doc.length > 0) {
-                res.send(doc)
-            } else {
-                res.send('Failed');
-            }
+            res.send(doc);
         }
     })
 

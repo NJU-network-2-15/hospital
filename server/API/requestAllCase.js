@@ -10,11 +10,7 @@ router.get('/', function (req, res, next) {
             console.log(err.message);
             res.send('Failed');
         } else {
-            if (doc.length > 0) {
-                res.send(doc)
-            } else {
-                res.send('Failed');
-            }
+            res.send(doc);
         }
     })
 

@@ -13,7 +13,8 @@ var doctorInfoSchema = new Schema({
     grade:String,
     commend:String,
     hospital:String,
-    picUrl:String
+    picUrl:String,
+    age:String
 });
 
 // 输出(导出)

@@ -13,7 +13,7 @@ var requestPatientLogin = require('./server/API/requestPatientLogin');
 var updatePatientInfo = require('./server/API/updatePatientInfo')
 var doctorViewRouter = require('./server/routes/doctorView');
 var LoginRouter = require('./server/routes/login');
-var doctorInfoByName = require('./server/API/requestDoctorInfoByName');
+var doctorInfoByID = require('./server/API/requestDoctorInfoByID');
 var doctorInfoByDepartment = require('./server/API/requestDoctorInfoByDepartment');
 var patientInfo = require('./server/API/requestPatientInfo');
 var mooc = require('./server/routes/mooctest');
@@ -26,7 +26,7 @@ var deleteCase = require('./server/API/deleteCase');
 var updateCaseDoctor = require('./server/API/updateCaseDoctor');
 var updateCasePatient = require('./server/API/updateCasePatient');
 var doctorAllQuestions = require('./server/routes/doctorAllQuestions');
-var doctorUpdateCase = require('./server/routes/doctorUpdateCase');
+var doctorInfo = require('./server/routes/doctorInfo');
 
 var allQuestions = require('./server/routes/allQuestions');
 var patientview = require('./server/routes/patientInfo');
@@ -77,7 +77,7 @@ app.use('/login', LoginRouter);
 app.use('/patientInfo', patientview);
 app.use('/allQuestions', allQuestions);
 app.use('/doctorAllQuestions', doctorAllQuestions);
-app.use('/doctorUpdateCase', doctorUpdateCase);
+app.use('/doctorInfo', doctorInfo);
 
 
 
@@ -86,7 +86,7 @@ app.use('/doctorUpdateCase', doctorUpdateCase);
 app.use('/API/requestPatientLogin', requestPatientLogin);
 app.use('/API/updatePatientInfo', updatePatientInfo);
 app.use('/API/requestDoctorLogin', requestLogin);
-app.use('/API/requestDoctorInfoByName', doctorInfoByName);
+app.use('/API/requestDoctorInfoByID', doctorInfoByID);
 app.use('/API/requestDoctorInfoByDepartment', doctorInfoByDepartment);
 app.use('/API/requestPatientInfo', patientInfo);
 app.use('/API/requestAllCasePatient', requestAllCasePatient);

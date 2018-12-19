@@ -44,14 +44,15 @@ router.get('/', function (req, res, next) {
 /* GET users listing. */
 router.get('/', function (req, res, next) {
     var id = req.query.caseID;
+    time = new Date().Format("yyyy-MM-dd hh:mm:ss");
     conditions = {
         doctorID:req.query.doctorID,
         doctorName:req.query.doctorName,
         doctorLevel:req.query.doctorLevel,
         proposal:req.query.proposal,
-        responseTime:new Date().Format("yyyy-MM-dd hh:mm:ss")
+        responseTime:time
     };
-    caseModel.update({'caseID': id}, {$addToSet: {'solution':conditions}},function (err, doc) {
+    caseModel.update({'caseID': id}, {'lastTime':time, $addToSet: {'solution':conditions}},function (err, doc) {
         if (err) {
             console.log(err.message);
             res.send('Failed');
