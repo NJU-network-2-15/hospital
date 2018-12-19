@@ -95,13 +95,7 @@ function getDataRow(h, i) {
     } else {
         /**此处修改*/
         /*得到最近回复时间*/
-        var lastResponse = new Date(Date.parse(h.solution[0].responseTime));
-        for (j = 1; j < h.solution.length; j++) {
-            if (lastResponse < h.solution[j].responseTime) {
-                lastResponse = h.solution[j].responseTime;
-            }
-        }
-        lastTime.innerHTML = new Date(lastResponse).toLocaleString();
+        lastTime.innerHTML = h.solution[h.solution.length-1].responseTime;
         /**此处修改*/
     }
     row.appendChild(lastTime);
