@@ -44,6 +44,9 @@ router.post('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
+    var busboy = new Busboy({ headers: req.headers });
+    //将流链接到busboy对象
+    req.pipe(busboy);
     var patientID = req.body.patientID;
     var patientName = req.body.patientName;
     var caseID = new Date().getTime();
@@ -58,9 +61,8 @@ router.post('/', function (req, res, next) {
     var medicalHistory = req.body.medicalHistory;
     var allergicHistory = req.body.allergicHistory;
 
-    var busboy = new Busboy({ headers: req.headers });
-    //将流链接到busboy对象
-    req.pipe(busboy);
+
+
 
 //监听file事件获取文件(字段名，文件，文件名，传输编码，mime类型)
     busboy.on('file', function (filedname, file, filename, encoding, mimetype) {

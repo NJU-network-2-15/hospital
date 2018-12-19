@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8c4456af-766e-4ce9-9d8e-101d269563d5" name="Default Changelist" comment="初始API基本完善（剩下用户上传病例图片）">
-      <change afterPath="$PROJECT_DIR$/server/views/2.2.1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/views/change.html" afterDir="false" />
+    <list default="true" id="8c4456af-766e-4ce9-9d8e-101d269563d5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/javascripts/PatientInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/PatientInfo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/API/addCase.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/API/addCase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/API/addPatient.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/API/addPatient.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/API/addCase.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="84" column="57" lean-forward="true" selection-start-line="84" selection-start-column="57" selection-end-line="84" selection-end-column="57" />
+            <state relative-caret-position="121">
+              <caret line="47" column="19" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -316,7 +310,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545219324520" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545219368347" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../node/wxserver" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -393,7 +387,7 @@
       <workItem from="1545119383083" duration="2809000" />
       <workItem from="1545182677721" duration="1589000" />
       <workItem from="1545184931496" duration="157000" />
-      <workItem from="1545213206699" duration="4308000" />
+      <workItem from="1545213206699" duration="4352000" />
     </task>
     <task id="LOCAL-00001" summary="12.13 changhao init">
       <created>1544674378249</created>
@@ -416,11 +410,18 @@
       <option name="project" value="LOCAL" />
       <updated>1544806748203</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update">
+      <created>1545219340485</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1545219340485</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100624000" />
+    <option name="totallyTimeSpent" value="100668000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1842" height="1042" extended-state="6" />
@@ -467,7 +468,8 @@
     <MESSAGE value="12.13 changhao init" />
     <MESSAGE value="12.15" />
     <MESSAGE value="初始API基本完善（剩下用户上传病例图片）" />
-    <option name="LAST_COMMIT_MESSAGE" value="初始API基本完善（剩下用户上传病例图片）" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/server/views/error.pug" />
@@ -755,8 +757,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/API/addCase.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="84" column="57" lean-forward="true" selection-start-line="84" selection-start-column="57" selection-end-line="84" selection-end-column="57" />
+        <state relative-caret-position="121">
+          <caret line="47" column="19" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
         </state>
       </provider>
     </entry>
