@@ -25,41 +25,41 @@ Date.prototype.Format = function (fmt) {
 };
 
 /* GET users listing. */
-router.post('/', function (req, res, next) {
-    var account = req.body.account;
-    var pwd = req.body.password;
-    patientModel.find({'account': account, 'password': pwd}, {'_id': 0},function (err, doc) {
-        if (err) {
-            console.log(err.message);
-            res.send('Failed');
-        } else {
-            if (doc.length > 0) {
-                next();
-            } else {
-                res.send('Failed');
-            }
-        }
-    })
-
-});
+// router.post('/', function (req, res, next) {
+//     var account = req.body.account;
+//     var pwd = req.body.password;
+//     patientModel.find({'account': account, 'password': pwd}, {'_id': 0},function (err, doc) {
+//         if (err) {
+//             console.log(err.message);
+//             res.send('Failed');
+//         } else {
+//             if (doc.length > 0) {
+//                 next();
+//             } else {
+//                 res.send('Failed');
+//             }
+//         }
+//     })
+//
+// });
 
 router.post('/', function (req, res, next) {
     var busboy = new Busboy({ headers: req.headers });
     //将流链接到busboy对象
     req.pipe(busboy);
-    var patientID = req.body.patientID;
-    var patientName = req.body.patientName;
+    // var patientID = req.body.patientID;
+    // var patientName = req.body.patientName;
     var caseID = new Date().getTime();
-    var caseType = req.body.caseType;
-    var gender = req.body.gender;
-    var age = req.body.age;
-    var phone = req.body.phone;
-    var caseDescription = req.body.caseDescription;
+    // var caseType = req.body.caseType;
+    // var gender = req.body.gender;
+    // var age = req.body.age;
+    // var phone = req.body.phone;
+    // var caseDescription = req.body.caseDescription;
     var startTime = new Date().Format("yyyy-MM-dd hh:mm:ss");
     var lastTime = '';
     var casePicUrls = [];
-    var medicalHistory = req.body.medicalHistory;
-    var allergicHistory = req.body.allergicHistory;
+    // var medicalHistory = req.body.medicalHistory;
+    // var allergicHistory = req.body.allergicHistory;
 
 
 
@@ -99,23 +99,23 @@ router.post('/', function (req, res, next) {
     });
 
     var solution = [];
-    var docs = new caseModel({
-        '_id':mongoose.Types.ObjectId(),
-        'patientID':patientID,
-        'patientName':patientName,
-        'caseID':caseID,
-        'caseType':caseType,
-        'gender':gender,
-        'age':age,
-        'phone':phone,
-        'caseDescription':caseDescription,
-        'startTime':startTime,
-        'lastTime':lastTime,
-        'casePicUrls':casePicUrls,
-        'solution':solution,
-        'medicalHistory':medicalHistory,
-        'allergicHistory':allergicHistory
-    });
+    // var docs = new caseModel({
+    //     '_id':mongoose.Types.ObjectId(),
+    //     'patientID':patientID,
+    //     'patientName':patientName,
+    //     'caseID':caseID,
+    //     'caseType':caseType,
+    //     'gender':gender,
+    //     'age':age,
+    //     'phone':phone,
+    //     'caseDescription':caseDescription,
+    //     'startTime':startTime,
+    //     'lastTime':lastTime,
+    //     'casePicUrls':casePicUrls,
+    //     'solution':solution,
+    //     'medicalHistory':medicalHistory,
+    //     'allergicHistory':allergicHistory
+    // });
 
 
 
