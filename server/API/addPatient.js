@@ -33,7 +33,7 @@ router.get('/', function (req, res, next) {
     var phone = req.query.phone;
     var medical = req.query.medicalHistory;
     var allergic = req.query.allergicHistory;
-    var iconUrl = "/";
+    var iconUrl = req.query.iconUrl;
 
     var docs = new patientModel({
         '_id':mongoose.Types.ObjectId(),

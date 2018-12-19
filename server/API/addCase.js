@@ -3,6 +3,8 @@ var router = express.Router();
 var patientModel = require('../../public/Model/patientModel');
 var caseModel = require('../../public/Model/caseModel');
 var mongoose = require('mongoose');
+let fs = require('fs');
+let Busboy = require('busboy');
 
 
 Date.prototype.Format = function (fmt) {
@@ -55,12 +57,45 @@ router.post('/', function (req, res, next) {
     var casePicUrls = [];
     var medicalHistory = req.body.medicalHistory;
     var allergicHistory = req.body.allergicHistory;
-    var picBody = JSON.parse(req.body.casePicUrls);
-    if(picBody.length>0){
-        for(let element in picBody){
-            casePicUrls.push({'picUrl':element});
+
+    var busboy = new Busboy({ headers: req.headers });
+    //将流链接到busboy对象
+    req.pipe(busboy);
+
+//监听file事件获取文件(字段名，文件，文件名，传输编码，mime类型)
+    busboy.on('file', function (filedname, file, filename, encoding, mimetype) {
+        const path = '/images/case/' + caseID;
+        if (!fs.existsSync(path)) {
+            fs.mkdirSync(path);
         }
-    }
+        //创建一个可写流
+        let writeStream = fs.createWriteStream(path + '/' + filename);
+
+        // //监听data事件，接收传过来的文件，如果文件过大，此事件将会执行多次，此方法必须写在file方法里
+        // file.on('data', function (data) {
+        //     writeStream.write(data);
+        // });
+        //
+        // //监听end事件，文件数据接收完毕，关闭这个可写流
+        // file.on('end', function (data) {
+        //     writeStream.end();
+        // });
+        // 可能会出现同名文件
+        console.log('start uploading file');
+        casePicUrls.push({picUrl:path + '/' + filename});
+        file.pipe(writeStream);
+    });
+
+    busboy.on('field', function(key, value, keyTruncated, valueTruncated) {//处理其他非文件字段
+        console.log(key);
+        console.log(value);
+    });
+
+    //监听finish完成事件,完成后重定向到百度首页
+    busboy.on('finish', function () {
+        console.log('upload file finished!');
+    });
+
     var solution = [];
     var docs = new caseModel({
         '_id':mongoose.Types.ObjectId(),
@@ -80,14 +115,16 @@ router.post('/', function (req, res, next) {
         'allergicHistory':allergicHistory
     });
 
-    docs.save(function (err, doc) {
-        if (err) {
-            console.log(err.message);
-            res.send('Failed');
-        } else {
-            res.send('Success');
-        }
-    })
+
+
+    // docs.save(function (err, doc) {
+    //     if (err) {
+    //         console.log(err.message);
+    //         res.send('Failed');
+    //     } else {
+    //         res.send('Success');
+    //     }
+    // })
 });
 
 module.exports = router;

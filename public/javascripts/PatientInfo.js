@@ -56,7 +56,7 @@ allergicHistory.innerHTML = patientInfo.allergicHistory;
 var tbody = document.getElementById('tbMain');
 if(patientCase!='Failed'){
     for (var i = 0; i < patientCase.length; i++) { //遍历一下json数据
-        var trow = getDataRow(patientCase[i]); //定义一个方法,返回tr数据
+        var trow = getDataRow(patientCase[i],i); //定义一个方法,返回tr数据
         tbody.appendChild(trow);
     }
 }
