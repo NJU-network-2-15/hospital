@@ -53,13 +53,13 @@ router.post('/', function (req, res, next) {
             fs.mkdirSync(base + path);
         }
         //创建一个可写流
-        const fname = new Date().getTime();
+        const fname = new Date().getTime() + '.jpg';
         let writeStream = fs.createWriteStream(base + path + '/' + fname);
 
 
         console.log('start uploading file');
         casePicUrls.push({'picUrl':path + '/' + fname});
-        docs['casePicUrls'] = JSON.stringify(casePicUrls);
+        docs['casePicUrls'] = casePicUrls;
         file.pipe(writeStream);
     });
 
