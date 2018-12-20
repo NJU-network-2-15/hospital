@@ -26,15 +26,15 @@ router.get('/', function (req, res, next) {
         } else {
             if (doc.length > 0) {
                 res.send({
-                    'description': doc[i].description,
-                    'doctorName': doc[i].doctorName,
-                    'hospital': doc[i].hospital,
-                    'department': doc[i].department,
-                    'doctorLevel': doc[i].doctorLevel,
-                    'commend': doc[i].commend,
-                    'grade': doc[i].grade,
-                    'picUrl': doc[i].picUrl,
-                    'age':doc[i].age,
+                    'description': doc[0].description,
+                    'doctorName': doc[0].doctorName,
+                    'hospital': doc[0].hospital,
+                    'department': doc[0].department,
+                    'doctorLevel': doc[0].doctorLevel,
+                    'commend': doc[0].commend,
+                    'grade': doc[0].grade,
+                    'picUrl': doc[0].picUrl,
+                    'age':doc[0].age,
                     'doctorID':doc[0].doctorID,
                 });
             } else {

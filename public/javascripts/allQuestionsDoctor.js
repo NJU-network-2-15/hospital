@@ -100,7 +100,7 @@ function getDataRow(h, i) {
 
     var myModalLabel = document.getElementById("myModalLabel" + i);
 
-    myModalLabel.innerHTML = h.doctorName + '的病例';
+    myModalLabel.innerHTML = h.patientName + '的病例';
 
     var myModalBody = document.getElementById("myModalBody" + i);
 
